@@ -1,11 +1,16 @@
 
 def main():
 
-	n = 1260
-	count =  0
-	coin_type = [500, 100, 50, 10]
 
-	for coin in coin_type:
+	numOfcoin, n = map(int, input().split())
+	coin_type = list(range(0, numOfcoin))
+	count = 0;
+
+	for i in range(0, numOfcoin ):
+		coin_type[i] = int(input())
+
+
+	for coin in reversed(coin_type):
 		count += n // coin
 		n = n % coin
 	print(count)
