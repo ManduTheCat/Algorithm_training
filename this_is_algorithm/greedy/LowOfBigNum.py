@@ -3,7 +3,7 @@ def main():
 	numOfinput, M, k = map(int, input().split())
 	inputlist = list(map(int, input().split()))
 
-	inputlist = inputlist.sort()
+	inputlist.sort()
 	result = list()
 	i = 0
 	j = 0
@@ -18,11 +18,14 @@ def main():
 	while i < M:
 
 		if j == k:
-			result.append(int(inputlist[-2]))
+			result.append(int(inputlist[inputList_idx - 2]))
 			i += 1
 			j = 0
+		
+		if i == M:
+			break
 
-		result.append(int(inputlist[-1]))
+		result.append(int(inputlist[inputList_idx - 1]))
 		i += 1
 		j += 1
 
