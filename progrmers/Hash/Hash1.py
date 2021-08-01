@@ -3,8 +3,10 @@ def solution(participant, completion):
 	temp = 0
 	dic = {}
 	for part in participant:
+		# print(part)
 		dic[hash(part)] = part
 		temp += int(hash(part))
+		print(int(temp))
 	for com in completion:
 		temp -= hash(com)
 	answer = dic[temp]
