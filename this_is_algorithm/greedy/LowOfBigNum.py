@@ -4,7 +4,7 @@ def main():
 	inputlist = list(map(int, input().split()))
 
 	inputlist = inputlist.sort()
-	result = int(0)
+	result = list()
 	i = 0
 	j = 0
 	inputList_idx = 0
@@ -18,14 +18,15 @@ def main():
 	while i < M:
 
 		if j == k:
-			result += int(inputlist[inputList_idx -2])
+			result.append(int(inputlist[-2]))
 			i += 1
 			j = 0
 
-		result += int(inputlist[inputList_idx -1])
+		result.append(int(inputlist[-1]))
 		i += 1
 		j += 1
 
+	print(result)
 
 
 if __name__ == "__main__":
