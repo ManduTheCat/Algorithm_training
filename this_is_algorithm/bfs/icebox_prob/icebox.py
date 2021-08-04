@@ -2,7 +2,7 @@ from collections import deque
 
 def bfs(graph, start, flag):
 	que = deque()
-
+	graph[start] = False
 
 
 def main():
