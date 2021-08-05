@@ -20,7 +20,7 @@ def bfs(x, y, dx, dy, n, m, maze):
 				maze[nx][ny] = maze[x][y] + 1
 				que.append((nx,ny))
 				print(que)
-			return maze[n -1][m -1]
+	return maze[n -1][m -1]
 
 
 
