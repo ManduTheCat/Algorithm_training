@@ -6,20 +6,20 @@ def bfs(x, y, dx, dy, n, m, maze):
 	que.append((x,y))
 	while que:
 		x, y = que.popleft()
-		for i in range(m):
+		for i in range(4):
 			nx = x + dx[i]
 			ny = y + dy[i]
 
-			if nx  < 0 or nx > m or ny < 0 or ny > n:
+			if nx  < 0 or nx >= n or ny < 0 or ny >= m:
 				continue
 
 			if maze[nx][ny] == 0:
 				continue
 
 			if maze[nx][ny] == 1:
-				maze[nx][ny] = maze[nx][ny] + 1
+				maze[nx][ny] = maze[x][y] + 1
 				que.append((nx,ny))
-
+				print(que)
 			return maze[n -1][m -1]
 
 
