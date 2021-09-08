@@ -3,38 +3,35 @@
 #include <string>
 #include <string.h>
 
-void show_all(std::stack<int> s)
+
+void see_all_stack(std::stack<char> s)
 {
-	while(!s.empty())
+	while(!(s.empty()))
 	{
-		std::cout << s.top() << '\n';
+		std::cout << s.top();
 		s.pop();
 	}
 }
-
 int main()
 {
+	std::stack <char> s;
 	std::string input;
-	std::stack<char> s;
 	int i;
-	char *str_chr;
-	char *str_token;
+	char dil;
 
+	dil = ' ';
 	getline(std::cin, input);
 	i = 0;
-	str_chr = new char[(int)input.length() * 10];
 
 	while(i < (int)input.length())
 	{
-		str_chr[i] = input[i];
+		s.push(input[i]);
+		if (input[i] == dil)
+		{
+			see_all_stack(s);
+		}
+
+
 		i++;
-	}
-
-	str_token = strtok(str_chr, " ");
-
-	while(str_token != NULL)
-	{
-		std::cout << str_token << '\n';
-		str_token = strtok(NULL, " ");
 	}
 }
