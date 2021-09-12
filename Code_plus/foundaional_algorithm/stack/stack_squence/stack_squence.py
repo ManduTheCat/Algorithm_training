@@ -1,40 +1,30 @@
 def main():
-	max_cmd_num = int(input())
-	input_list = list()
-	count = 0
+	max_cmd_num =  int(input())
+	input_num_list = [int(input()) for _ in range(max_cmd_num)]
+	max_num = 0
 	stack = list()
-	stack_num = 1
-	output_list = list()
+	output = list()
 
-	stack.append(stack_num)
-
-	while(count < max_cmd_num):
-		input_num = input()
-		input_list.append(input_num)
-		count +=1
-
-	count = 0
-	while(count < len(input_list)):
-		print(input_list[count])
-
-		if(len(stack) == 0):
-			stack.append(1)
-
-		if(stack[-1] == int(input_list[count])):
+	for input_num in input_num_list:
+		if max_num < input_num:
+			while max_num < input_num:
+				max_num+=1
+				stack.append(max_num)
+				output.append("+")
 			stack.pop()
-			output_list.append("-")
-			count +=1
-
-		elif(stack[-1] < int(input_list[count])):
-			stack_num+=1
-			stack.append(stack_num)
-			output_list.append("+")
-
-		elif(stack[-1] > int(input_list[count])): #뺏는 대 아니면 없는거다
+			output.append("-")
+		else:
+			if stack[-1] != input_num:
+				print("NO")
+				return 0
 			stack.pop()
-			output_list.append("-")
-	print(output_list)
+			output.append("-")
+
+	for symble in output:
+		print(symble , end="\n")
 
 
-if(__name__== "__main__"):
+
+
+if(__name__ == "__main__"):
 	main()
