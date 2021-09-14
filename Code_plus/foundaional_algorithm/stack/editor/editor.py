@@ -6,7 +6,6 @@ def main():
 	input_list = list()
 	for _ in range(max_cmd_num):
 		input_list.append(stdin.readline().strip())
-	print(input_list)
 	second_stack = list()
 
 	for input_cmd in input_list:
