@@ -24,7 +24,5 @@ def main():
 		print(symble , end="\n")
 
 
-
-
 if(__name__ == "__main__"):
 	main()
