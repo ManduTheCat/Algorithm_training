@@ -9,6 +9,7 @@ int main()
 	int i;
 	int j;
 	queue <int>q;
+	queue <int>out_put_q;
 
 	cin >> n >> k;
 	i = 0;
@@ -26,8 +27,19 @@ int main()
 		{
 			q.push(q.front());
 			q.pop();
+			j++;
 		}
+		out_put_q.push(q.front());
+		q.pop();
 		i++;
 	}
+	cout << "<";
+	while(!(out_put_q.empty()))
+	{
+		cout << out_put_q.front();
+		out_put_q.pop();
+
+	}
+	cout << ">";
 
 }
