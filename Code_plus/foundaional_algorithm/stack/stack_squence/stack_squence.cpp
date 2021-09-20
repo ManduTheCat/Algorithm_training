@@ -18,7 +18,7 @@ int main()
 		int x;
 		cin >> x; //input num
 
-		if(x > m) //stack_num
+		if(x > m) // input num > stack_num
 		{
 			while (x > m)
 			{

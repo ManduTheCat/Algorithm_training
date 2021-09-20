@@ -33,13 +33,18 @@ int main()
 		q.pop();
 		i++;
 	}
+	
 	cout << "<";
 	while(!(out_put_q.empty()))
 	{
-		cout << out_put_q.front();
+		if(out_put_q.size() == 1)
+		{
+			cout << out_put_q.front();
+			cout << ">" << "\n";
+			break;
+		}
+		cout << out_put_q.front() << ", "; 
 		out_put_q.pop();
-
 	}
-	cout << ">";
 
 }
