@@ -44,11 +44,12 @@ int main()
 	int input2;
 	int cmd_count;
 	cin  >> cmd_count;
-	cin >> input1 >> input2;
 
+	while(cmd_count--)
+	{
+		cin >>  input1 >> input2;
+		lcm = f_lcm(input1, input2);
+		cout << lcm << "\n";
+	}
 
-	lcm = f_lcm(input1, input2);
-	gcd = f_gcd(input1, input2);
-
-	cout << gcd << "\n" << lcm << "\n";
 }
