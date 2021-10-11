@@ -7,22 +7,26 @@ using namespace std;
 int main()
 {
 	int num_count;
-	int max_idx;
-	int res;
 
-	res = 0;
 	cin >> num_count;
 	vector<int> arr(num_count);
+	vector<int> dp(num_count);
 
 	for(int i = 0; i < num_count; i++)
 	{
 		cin >> arr[i];
 	}
-	max_idx = max_element(arr.begin(), arr.end()) - arr.begin();
-	res = arr[max_idx];
-	arr.erase(arr.begin() + max_idx);
-	res = max(res, res + arr[max_element(arr.begin(), arr.end()) - arr.begin()]);
 
-	cout << res;
+	for(int i = 0; i < num_count; i++)
+	{
+		if( i != 0)
+			dp[i] = max(arr[i], arr[i] + dp[i - 1]);
+		else
+			dp[0] = arr[0];
+	}
+
+	int res;
+	res = *max_element(dp.begin(), dp.end());
+	cout << res << "\n";
 }
 
