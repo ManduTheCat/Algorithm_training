@@ -14,8 +14,19 @@ int main()
 	vector<char> first_string(first_string_size * 2, '_');
 	vector<char> second_string(second_string_size * 2, '_');
 
-	for(int i = 1; i <= first_string.size(); i+=2)
+	for(int i = 1; i <= (int)first_string.size(); i+=2)
 	{
 		cin >> first_string[i];
 	}
+	for(int i = 1; i <= (int)first_string.size(); i+=2)
+	{
+		cin >> second_string[i];
+	}
+	for(auto loop : first_string)
+	{
+		cout << loop;
+	}
+
+
+	return 0;
 }
