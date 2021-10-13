@@ -1,6 +1,7 @@
 #include <iostream>
 #include <algorithm>
 #include <list>
+#include <string>
 using namespace std;
 
 int main()
@@ -9,54 +10,67 @@ int main()
 	int second_string_size;
 	int sec;
 	char c;
+	string first_string;
+	string second_string;
 
 	cin >> first_string_size;
 	cin >> second_string_size;
+	cin >> first_string;
+	cin >> second_string;
 	cin >> sec;
 
-	list <char> first_string;
-	list <char> second_string;
+	list <char> first_string_list;
+	list <char> second_string_list;
 
 	for(int i = 0; i < first_string_size; i++)
-	{
-		cin >> c;
-		first_string.push_back(c);
+	{	
+		c = first_string[i];
+		first_string_list.push_back(c);
 	}
-	reverse(first_string.begin(),first_string.end());
+	reverse(first_string_list.begin(),first_string_list.end());
 
 	for(int i = 0; i < second_string_size; i++)
 	{
-		cin >> c;
-		second_string.push_back(c);
+		c = second_string[i];
+		second_string_list.push_back(c);
 	}
 
-	c = first_string.back();
-	list <char>::iterator itor_pos = second_string.begin();
-
-	for(int i = 0; i < sec; i++)
+	c = first_string_list.back();
+	list <char>::iterator itor_pos = second_string_list.begin();
+	if(sec <= second_string_size)
+		for(int i = 0; i < sec; i++)
+		{
+			itor_pos++;
+		}
+	else
 	{
-		itor_pos++;
+		itor_pos = second_string_list.end();
+		sec = second_string_size;
 	}
 
 	while(sec--)
 	{
-		c = first_string.back();
-		second_string.insert(itor_pos, c);
+		c = first_string_list.back();
+		second_string_list.insert(itor_pos, c);
 		itor_pos--;
-		first_string.pop_back();
+		itor_pos--;
+		first_string_list.pop_back();
 
 	}
-	for(auto loop : first_string)
+
+	if(1 != first_string_list.empty())
 	{
-		cout <<loop << " ";
+		for(auto loop : first_string_list)
+		{
+			cout <<loop;
+		}
+	}
+	for(auto loop : second_string_list)
+	{
+		cout <<loop;
 	}
 	cout << "\n";
 
-	for(auto loop : second_string)
-	{
-		cout <<loop << " ";
-	}
-	cout << "\n";
-
+	return 0;
 
 }
