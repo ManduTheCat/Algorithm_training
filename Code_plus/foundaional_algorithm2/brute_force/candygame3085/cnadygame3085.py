@@ -26,12 +26,25 @@ def check(arr):
 def main():
 	n = int(input())
 	arr = list()
+	ans = 0
 	for _ in range(n):
 		arr.append(list(map(str,sys.stdin.readline().strip())))
 
 	for i in range(n):
-		print(arr[i])
+		for j in range(n):
+			if(j + 1 < n):
+				arr[i][j], arr[i][j + 1] = arr[i][j + 1], arr[i][j]
+				if ans < check(arr):
+					ans = check(arr)
+				arr[i][j], arr[i][j + 1] = arr[i][j + 1] ,arr[i][j]
 
+
+			if(i + 1 < n):
+				arr[i][j], arr[i + 1][j] = arr[i + 1][j], arr[i][j]
+				if ans < check(arr):
+					ans = check(arr)
+				arr[i][j], arr[i + 1][j] = arr[i + 1][j] ,arr[i][j]
+	print(ans)
 
 if __name__ == "__main__":
 	main()
