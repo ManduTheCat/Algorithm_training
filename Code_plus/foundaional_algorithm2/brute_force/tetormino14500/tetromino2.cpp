@@ -31,16 +31,32 @@ int main()
 		}
 	}
 
-	for(int i = 0; i < 8; i++)
+	int sum = 0;
+	int res = 0;
+	for(int add_n = 0; add_n < n; add_n++)
 	{
-		for(int j  = 0; j < 4; j++)
+		for(int add_m = 0; add_m < m; add_m++)
 		{
-			cout << "i : " << i << ", ";
-			int x = shapes[i][j][0];
-			int y = shapes[i][j][1];
-			cout << "x : " << x<< " y : " << y << ", ";
-			cout <<"papar : "<< papar[x][y] << " \n";
+			for(int i = 0; i < 15; i++)
+			{
+				for(int j  = 0; j < 4; j++)
+				{
+					cout << "i : " << i << ", " << "\n";
+					int x = shapes[i][j][0];
+					int y = shapes[i][j][1];
+					sum += papar[x + add_n][y + add_m]; // 여기서 증가 감소 필터링 해야한다
+					cout << "x , y: " << "(" << x << " + " << add_n<<" , " << y <<" + "<<add_m<<")" << "\n";
+					cout <<"papar : "<< papar[x + add_n][y + add_m] << " \n";
+				}
+				res = max(res, sum);
+				sum =0;
+				cout <<"res : " << res << "\n";
+				cout << " ---------------------------- " << "\n";
+			}
 		}
-		cout << "\n";
 	}
+
+	cout << res << "\n";
+
+
 }
