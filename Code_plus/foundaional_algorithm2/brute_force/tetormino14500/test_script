@@ -1,0 +1,13 @@
+#!/bin/bash
+for var in {0..19}
+do
+    echo test file num :$var
+    ./a.out < test_case/$var.txt
+
+done
+
+for var in {0..19}
+do
+    echo test file2 num :$var
+    ./a.out < test_case_2/$var.txt
+done
