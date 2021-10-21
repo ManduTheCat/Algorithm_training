@@ -367,6 +367,6 @@ int main()
 	int I = I_shape(papar, n, m);
 	// std::cout << "\n";
 	std::cout << max({L,T,S,O,I});
-	// std::cout << "\n";
+	std::cout << "\n";
 	return 0;
 }
