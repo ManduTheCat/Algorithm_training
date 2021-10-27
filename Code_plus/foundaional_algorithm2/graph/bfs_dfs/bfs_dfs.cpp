@@ -1,36 +1,49 @@
 #include <iostream>
-#include <vector>
 #include <queue>
-#include <string.h>
 #include <algorithm>
-
-
+#include <string.h>
 using namespace std;
-vector <int> adj_list[1001];
 
+vector <int> adj_list[1001];
 int check[1001];
 
+void dfs(int start_v)
+{
 
+	check[start_v] = 1;
+	cout << start_v <<" ";
+	for(int i = 0; i <(int)adj_list[start_v].size(); i++)
+	{
+		// int next = adj_list[start_v][i];
+		if(check[adj_list[start_v][i]] == 0)
+		{
 
-void bfs(int vertex)
+			dfs(adj_list[start_v][i]);
+			// dfs(next);
+		}
+	}
+
+}
+
+void bfs(int start_v)
 {
 	queue <int> q;
 	memset(check, 0, sizeof(check));
-	q.push(vertex);
-	check[vertex] = 1;
-	while(q.empty() != 1)
-	{
-		int node = q.front();
-		q.pop();
-		cout << node << " ";
+	check[start_v] = 1;
+	q.push(start_v);
 
-		for(int i = 0; i < (int)adj_list[node].size(); i++)
+	while(!q.empty())
+	{
+		int cur_vertex;
+		cur_vertex = q.front();
+		cout << cur_vertex << " ";
+		q.pop();
+		for(int i = 0; i <(int)adj_list[cur_vertex].size(); i++)
 		{
-			int next = adj_list[node][i];
-			if(check[adj_list[next][i]] == 0)
+			if(check[adj_list[cur_vertex][i]] == 0)
 			{
-				check[adj_list[next][i]] = 1;
-				q.push(adj_list[next][i]);
+				check[adj_list[cur_vertex][i]] = 1;
+				q.push(adj_list[cur_vertex][i]);
 			}
 		}
 	}
@@ -38,10 +51,11 @@ void bfs(int vertex)
 
 int main()
 {
-	int vertex, edge, start;
-	cin >> vertex >> edge >> start;
-
-	for (int i = 0; i < edge; i++)
+	int n;
+	int m;
+	int start_v;
+	cin >> n >> m >> start_v;
+	for(int i = 0; i < m; i++)
 	{
 		int from;
 		int to;
@@ -49,10 +63,13 @@ int main()
 		adj_list[from].push_back(to);
 		adj_list[to].push_back(from);
 	}
-	for(int i = 1; i <= vertex; i++)
+	for(int i = 1; i <= n; i++)
 	{
 		sort(adj_list[i].begin(), adj_list[i].end());
 	}
 
-	bfs(start);
+	bfs(start_v);
+	memset(check, 0 , sizeof(check));
+	cout <<" \n";
+	dfs(start_v);
 }
