@@ -8,11 +8,12 @@ using namespace std;
 
 void bfs(int n, int **&arr, int **&check)
 {
-	int dx[4] = {1, -1, 0, 0};
-	int dy[4] = {0, 0, 1, -1};
-	int x = 0;
-	int y = 0;
-	int count = 1;
+	int dx[4] = {0, 0, 1, -1};
+	int dy[4] = {1, -1, 0, 0};
+	int x;
+	int y;
+	int count = 0;
+	int group_count = 0;
 
 	queue <pair<int, int>> q;
 
@@ -20,26 +21,36 @@ void bfs(int n, int **&arr, int **&check)
 	{
 		for(int j = 0; j< n; j++)
 		{
+			x = i;
+			y = j;
 			if(check[i][j] == 0 && arr[i][j] == 1)
 			{
-				q.push(make_pair(i,j));
+				group_count++;
+				q.push(make_pair(x,y));
+				check[x][y] = group_count;
 				while(!q.empty())
 				{
 					x = q.front().first;
 					y = q.front().second;
 					q.pop();
-					for(int d = 0; d < 4; j++)
+					count ++;
+					printf("x: %d,y: %d, count: %d\n", x, y, count);
+					for(int d = 0; d < 4; d++)
 					{
-						x = x + dx[d];
-						y = y + dy[d];
-						if(x < n -1 && x > 0 && y < n -1 && y > 0)
+						int nx;
+						int ny;
+						nx = x + dx[d];
+						ny = y + dy[d];
+						if(nx < n && nx >= 0 && ny < n && ny >= 0)
 						{
-							q.push(make_pair(x, y));
-							check[x][y] = count;
+							if(check[nx][ny] == 0 && arr[nx][ny] == 1)
+							{
+								q.push(make_pair(nx, ny));
+								check[nx][ny] = group_count;
+							}
 						}
 					}
 				}
-				count++;
 			}
 		}
 	}
@@ -70,8 +81,24 @@ int main()
 		}
 	}
 
+	for(int i = 0; i < n; i++)
+	{
+		for(int j = 0; j < n; j++)
+		{
+			printf("%d", arr[i][j]);
+		}
+		printf("\n");
+	}
 	bfs(n , arr, check);
 	std::printf("\n");
 
+	for(int i = 0; i < n; i++)
+	{
+		for(int j = 0; j < n; j++)
+		{
+			printf("%d", check[i][j]);
+		}
+		printf("\n");
+	}
 
 }
