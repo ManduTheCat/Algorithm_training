@@ -1,32 +1,40 @@
 #include <iostream>
 #include <vector>
 #include <string.h>
-
+#include <queue>
+#include <utility>
 using namespace std;
+
 
 void bfs(int n, int **&arr, int **&check)
 {
+	queue <pair<int, int>> q;
+	int x = 0;
+	int y = 0;
 
-	for(int i = 0; i < n; i++)
-	{
-		for(int j = 0; j < n; j++)
+	q.push(make_pair(x,y));
+	while(!q.empty())
+	{	
+		for(int i = 0; i < n; i++)
 		{
-			printf("%d" ,arr[i][j]);
+			for(int j = 0; j < n; j++)
+			{
+				printf("%d" ,arr[i][j]);
+			}
+			printf("\n");
 		}
+
 		printf("\n");
-	}
 
-	printf("\n");
-
-	for(int i = 0; i < n; i++)
-	{
-		for(int j = 0; j < n; j++)
+		for(int i = 0; i < n; i++)
 		{
-			printf("%d" ,check[i][j]);
+			for(int j = 0; j < n; j++)
+			{
+				printf("%d" ,check[i][j]);
+			}
+			printf("\n");
 		}
-		printf("\n");
 	}
-
 
 }
 
