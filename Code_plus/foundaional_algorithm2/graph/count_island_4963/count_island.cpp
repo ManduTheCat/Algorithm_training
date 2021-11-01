@@ -30,7 +30,7 @@ void bfs(int w, int h, int **&arr, int **&check)
 					{
 						int nx = x + dx[d];
 						int ny = y + dy[d];
-						if(nx > w && nx >= 0 && ny > h && ny >=0 && arr[nx][ny] == 1 && check[nx][ny] == 0)
+						if(nx < h && nx >= 0 && ny < w && ny >=0 && arr[nx][ny] == 1 && check[nx][ny] == 0)
 						{
 							q.push(make_pair(nx, ny));
 							check[nx][ny] = count;
@@ -75,13 +75,13 @@ int main()
 		}
 
 		bfs(w, h, arr, check);
-		for(int i = 0; i < h; i++)
-		{
-			for(int j = 0; j < w; j++)
-			{
-				printf("%d", check[i][j]);
-			}
-			printf("\n");
-		}
+		// for(int i = 0; i < h; i++)
+		// {
+		// 	for(int j = 0; j < w; j++)
+		// 	{
+		// 		printf("%d", check[i][j]);
+		// 	}
+		// 	printf("\n");
+		// }
 	}
 }
