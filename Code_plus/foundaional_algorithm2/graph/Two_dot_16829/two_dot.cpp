@@ -13,6 +13,7 @@ void bfs_solution(int n, int m, char **&arr, int **&check)
 	int nx, ny;
 	int x, y;
 	char alpha;
+	int beside_check;
 	queue <pair<int, int>> q;
 
 	for(int i = 0; i < n; i++)
@@ -29,14 +30,16 @@ void bfs_solution(int n, int m, char **&arr, int **&check)
 					x = q.front().first;
 					y = q.front().second;
 					q.pop();
+					beside_check = 0;
 					for(int d = 0; d < 4; d++)
 					{
 						nx = x + dx[d];
 						ny = y + dy[d];
 						if(nx >= 0 && ny >= 0 && n > nx && x > ny && check[nx][ny] == 0 && arr[nx][ny] == alpha)
 						{
+							beside_check++;
 							q.push(make_pair(nx, ny));
-							check[nx][ny] = 1;
+							check[nx][ny] = beside_check;
 						}
 					}
 				}
@@ -67,17 +70,18 @@ int main()
 	{
 		scanf("%s", &*arr[i]);
 	}
+
+
+	bfs_solution(n, m, arr, check);
+
 	for(int i = 0; i < n; i++)
 	{
 		for(int j = 0; j < m; j++)
 		{
-			printf("%c", arr[i][j]);
+			printf("%c", check[i][j]);
 		}
 		printf("\n");
 	}
-
-	bfs_solution(n, m, arr, check);
-
 
 	return 0;
 }
