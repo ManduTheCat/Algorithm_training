@@ -6,52 +6,47 @@
 
 using namespace std;
 
-void bfs_solution(int n, int m, char **&arr, int **&check)
-{
-	int dx[4] = {0, 0, 1, -1};
-	int dy[4] = {1, -1, 0 ,0};
-	int nx, ny;
-	int x, y;
-	char alpha;
-	int beside_check;
-	queue <pair<int, int>> q;
+int n;
+int m;
+int dx[4] = {0, 0 , -1, 1};
+int dy[4] = {1, -1, 0, 0};
 
+void dfs(int x, int y, char **&arr, int **&check, int count, char alpha)
+{
+	count++;
+	if(check[x][y] == 0)
+	{
+		check[x][y] = count;
+		for(int d = 0; d < 4; d++)
+		{
+			int nx = x + dx[d];
+			int ny = y + dy[d];
+			if(nx >= 0 && ny >= 0 && n > nx && m > ny && check[nx][ny] == 0 && arr[nx][ny] == alpha)
+			{
+				dfs(nx, ny, arr, check, count, alpha);
+			}
+		}
+	}
+}
+
+void intput_to_dfs_solution(char **&arr, int **&check)
+{
 	for(int i = 0; i < n; i++)
 	{
 		for(int j = 0; j < m; j++)
 		{
 			if(check[i][j] == 0)
 			{
-				alpha = arr[i][j];
-				q.push(make_pair(i, j));
-				check[i][j] = 1;
-				while(!q.empty())
-				{
-					x = q.front().first;
-					y = q.front().second;
-					q.pop();
-					beside_check = 0;
-					for(int d = 0; d < 4; d++)
-					{
-						nx = x + dx[d];
-						ny = y + dy[d];
-						if(nx >= 0 && ny >= 0 && n > nx && x > ny && check[nx][ny] == 0 && arr[nx][ny] == alpha)
-						{
-							beside_check++;
-							q.push(make_pair(nx, ny));
-							check[nx][ny] = beside_check;
-						}
-					}
-				}
+				dfs(i, j, arr, check, 0, arr[i][j]);
 			}
 		}
 	}
+
 }
+
 
 int main()
 {
-	int n;
-	int m;
 	scanf("%d %d", &n,&m);
 	char **arr = new char *[n];
 	int **check = new int *[n];
@@ -72,13 +67,13 @@ int main()
 	}
 
 
-	bfs_solution(n, m, arr, check);
+	intput_to_dfs_solution(arr, check);
 
 	for(int i = 0; i < n; i++)
 	{
 		for(int j = 0; j < m; j++)
 		{
-			printf("%c", check[i][j]);
+			printf("%d ", check[i][j]);
 		}
 		printf("\n");
 	}
