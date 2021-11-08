@@ -10,10 +10,19 @@ int n;
 int m;
 int dx[4] = {0, 0 , -1, 1};
 int dy[4] = {1, -1, 0, 0};
+int count;
+int flag;
+int cordex_x;
+int cordex_y;
 
-void dfs(int x, int y, char **&arr, int **&check, int count, char alpha)
+void dfs(int x, int y, int befor_x, int befor_y, char **&arr, int **&check, char alpha)
 {
 	count++;
+	if(check != 0 && check[x][y] >= 4 )
+	{
+		// printf("bumped\n");
+		flag = 1;
+	}
 	if(check[x][y] == 0)
 	{
 		check[x][y] = count;
@@ -21,12 +30,19 @@ void dfs(int x, int y, char **&arr, int **&check, int count, char alpha)
 		{
 			int nx = x + dx[d];
 			int ny = y + dy[d];
-			if(nx >= 0 && ny >= 0 && n > nx && m > ny && check[nx][ny] == 0 && arr[nx][ny] == alpha)
+			if(n > nx && m > ny && nx >= 0 && ny >= 0)
 			{
-				dfs(nx, ny, arr, check, count, alpha);
+				if(!(nx == befor_x && ny == befor_y))
+				{
+					if(arr[nx][ny] == alpha)
+					{
+						dfs(nx, ny, x, y, arr, check, alpha);
+					}
+				}
 			}
 		}
 	}
+
 }
 
 void intput_to_dfs_solution(char **&arr, int **&check)
@@ -37,11 +53,23 @@ void intput_to_dfs_solution(char **&arr, int **&check)
 		{
 			if(check[i][j] == 0)
 			{
-				dfs(i, j, arr, check, 0, arr[i][j]);
+				flag = 0;
+				count = 0;
+				cordex_x = i;
+				cordex_x = j;
+				dfs(i, j, -1, -1,arr, check, arr[i][j]);
+				if(flag == 1)
+				{
+					printf("YES\n");
+					return;
+				}
 			}
 		}
 	}
-
+	if(flag == 0)
+	{
+		printf("NO\n");
+	}
 }
 
 
@@ -69,14 +97,14 @@ int main()
 
 	intput_to_dfs_solution(arr, check);
 
-	for(int i = 0; i < n; i++)
-	{
-		for(int j = 0; j < m; j++)
-		{
-			printf("%d ", check[i][j]);
-		}
-		printf("\n");
-	}
+	// for(int i = 0; i < n; i++)
+	// {
+	// 	for(int j = 0; j < m; j++)
+	// 	{
+	// 		printf("%d ", check[i][j]);
+	// 	}
+	// 	printf("\n");
+	// }
 
 	return 0;
 }
