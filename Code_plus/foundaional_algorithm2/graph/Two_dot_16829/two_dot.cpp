@@ -60,7 +60,7 @@ void intput_to_dfs_solution(char **&arr, int **&check)
 				dfs(i, j, -1, -1,arr, check, arr[i][j]);
 				if(flag == 1)
 				{
-					printf("YES\n");
+					printf("Yes\n");
 					return;
 				}
 			}
@@ -68,7 +68,7 @@ void intput_to_dfs_solution(char **&arr, int **&check)
 	}
 	if(flag == 0)
 	{
-		printf("NO\n");
+		printf("No\n");
 	}
 }
 
