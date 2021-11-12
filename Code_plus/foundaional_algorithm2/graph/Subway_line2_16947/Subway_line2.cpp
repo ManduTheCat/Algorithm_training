@@ -1,6 +1,7 @@
 #include <iostream>
 #include <vector>
 #include <string.h>
+#include <queue>
 
 using namespace std;
 
@@ -13,13 +14,16 @@ using namespace std;
 
 vector <int> adj_list[3001];
 int cycle_node_list[3001];
+int visit_dfs[3001];
 int visit_bfs[3001];
 int parants_vertex[3001];
 int flag_cycle;
+int vertex_num;
+int count;
 
 void find_circle(int cur_vertex)
 {
-	visit_bfs[cur_vertex] = 1;
+	visit_dfs[cur_vertex] = 1;
 	for(int i = 0; i < (int)adj_list[cur_vertex].size(); i++)
 	{
 		if(flag_cycle == 1)
@@ -27,7 +31,7 @@ void find_circle(int cur_vertex)
 		int next = adj_list[cur_vertex][i];
 		int parants = parants_vertex[cur_vertex];
 
-		if(visit_bfs[next] == 1) // 탐색중 방문 했던 노드
+		if(visit_dfs[next] == 1) // 탐색중 방문 했던 노드
 		{
 			if(parants != next) // 부모노드와 자식노드가 다르다
 			{
@@ -49,9 +53,29 @@ void find_circle(int cur_vertex)
 	}
 }
 
+void bfs(int start_v)
+{
+	queue <int> q;
+	visit_bfs[start_v] = count++;
+	q.push(start_v);
+	while(!q.empty())
+	{
+		int cur_v = q.front();
+		q.pop();
+		for(int i = 0; i < (int)adj_list[cur_v].size(); i++)
+		{
+			int next = adj_list[cur_v][i];
+			if(visit_bfs[next] == 0)
+			{
+				q.push(next);
+				visit_bfs[next] = count++;
+			}
+		}
+	}
+}
+
 int main()
 {
-	int vertex_num;
 	cin >> vertex_num;
 	for(int i = 0; i < vertex_num; i++)
 	{
@@ -67,5 +91,13 @@ int main()
 		printf("%d",cycle_node_list[i]);
 	}
 	printf("\n");
+	for(int i = 1; i <= vertex_num; i++)
+	{
+		if(visit_bfs[i] == 0)
+		{
+			bfs(i);
+		}
+	}
+
 
 }
