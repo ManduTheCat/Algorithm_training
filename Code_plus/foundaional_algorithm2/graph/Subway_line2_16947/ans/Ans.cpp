@@ -28,7 +28,7 @@ void bfs() {
 		q.pop();
 		visited[cur] = true;
 
-		for (int i = 0; i < edge[cur].size(); i++) {
+		for (int i = 0; i < (int)edge[cur].size(); i++) {
 			int next = edge[cur][i];
 			if (visited[next]) continue;
 			dist[next] = dis + 1;
@@ -39,7 +39,7 @@ void bfs() {
 
 void findCycle(int cur) {
 	visited[cur] = true;
-	for (int i = 0; i < edge[cur].size(); i++) {
+	for (int i = 0; i < (int)edge[cur].size(); i++) {
 		//사이클을 찾았다면 다른 dfs 모두 종료
 		if (hasCycle) return;
 		int next = edge[cur][i];
@@ -76,6 +76,11 @@ int main() {
 		edge[to].push_back(from);
 	}
 	findCycle(1);
+	for(int i = 1; i <= n; i++)
+	{
+		printf("%d", cycle[i]);
+	}
+	printf("\n");
 	memset(visited, false, MAX);
 	bfs();
 	for (int i = 1; i <= n; i++) {

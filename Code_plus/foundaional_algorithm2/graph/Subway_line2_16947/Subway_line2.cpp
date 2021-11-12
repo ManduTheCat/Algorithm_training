@@ -4,50 +4,49 @@
 
 using namespace std;
 
-
-
 //https://ongveloper.tistory.com/276 참조
-// 트리는 노드r갯수 -1 개의 간선을 가지게 된다. 이점을 이용해보자.
-vector <int> adj_list[3001];
-int is_cycle_node[3001]; // yes = true, no = false
-int visit_check[3001];
-int pre_vertex[3001];
-int check_status;
+// 사이클 을 찾기 위한 조건 : 백엣지
+// 백엣지 조건
+// 1. 노드의 부모노드 != 자식노드 이유는 양방향 그래프에서는 무조건 이전 노드 로 갈수 있는 엣지 가 있다.
+// 그래서 단순 하게 바로 뒤로 가는 엣지의 경우는 무시해야한다
+// 2. 노드의 자식 노드가 dfs 탐색중 방문을 했던 노드
 
-void chek_is_circle(int cur_vertex)
+vector <int> adj_list[3001];
+int cycle_node_list[3001];
+int visit_bfs[3001];
+int parants_vertex[3001];
+int flag_cycle;
+
+void find_circle(int cur_vertex)
 {
-	visit_check[cur_vertex] = 1;
+	visit_bfs[cur_vertex] = 1;
 	for(int i = 0; i < (int)adj_list[cur_vertex].size(); i++)
 	{
-		if(check_status == 1)
+		if(flag_cycle == 1)
 			return;
-
 		int next = adj_list[cur_vertex][i];
+		int parants = parants_vertex[cur_vertex];
 
-		if(visit_check[next] == 1) // 돌다가 방문햇던걸 다시 돌아온다오면
+		if(visit_bfs[next] == 1) // 탐색중 방문 했던 노드
 		{
-			if(next != pre_vertex[cur_vertex]) //그게 바로 이전것이 아니라면
+			if(parants != next) // 부모노드와 자식노드가 다르다
 			{
-				check_status = 1;
-				is_cycle_node[cur_vertex] = 1;
-				while(cur_vertex != next) // 과거 것을 체크 하면서 뒤로 간다;
+				flag_cycle = 1;
+				cycle_node_list[cur_vertex] = 1;
+				while(cur_vertex != next)
 				{
-					is_cycle_node[pre_vertex[cur_vertex]] = 1;
-					cur_vertex = pre_vertex[cur_vertex];
-
+					cycle_node_list[parants_vertex[cur_vertex]] = 1;
+					cur_vertex = parants_vertex[cur_vertex];
 				}
 				return;
 			}
-
 		}
 		else
 		{
-			pre_vertex[next] = cur_vertex; // next 의 이전 vertex 기록
-			chek_is_circle(next);
-
+			parants_vertex[next] = cur_vertex;
+			find_circle(next);
 		}
 	}
-
 }
 
 int main()
@@ -61,5 +60,12 @@ int main()
 		adj_list[from].push_back(to);
 		adj_list[to].push_back(from);
 	}
+
+	find_circle(1);
+	for(int i = 1; i <= vertex_num; i++)
+	{
+		printf("%d",cycle_node_list[i]);
+	}
+	printf("\n");
 
 }
