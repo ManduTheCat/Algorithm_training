@@ -8,12 +8,12 @@ vector <int> adj_list[3001];// 인접 리스트 // 이중배열 // 내가 간선
 vector <int> route;
 int root_value;
 int check[3001];
-int preorder[3001];
+int parents[3001];
 
 
 void print_back_rout(int start_node, int *node_value)
 {
-	int next = preorder[start_node];
+	int next = parents[start_node];
 	if(next == -1)
 		return;
 	cout<< node_value[next];
@@ -24,8 +24,8 @@ void print_back_rout(int start_node, int *node_value)
 
 void back_dfs(int cur_node, int depth, int *node_value, int &flag)
 {
-	int parants = preorder[cur_node];
-	if(preorder[cur_node] == -1 && depth - 1 == 0)
+	int parants = parents[cur_node];
+	if(parents[cur_node] == -1 && depth - 1 == 0)
 	{
 		flag = 1;
 		// cout << "node_valsue ,routu (" << node_value[cur_node] <<" , "<< route[depth -1]<< ")\n";
@@ -60,7 +60,7 @@ void dfs(int cur_node, int pre_node,int *node_value, int depth)
 
 		if(check[next_node] == 0)
 		{
-			preorder[next_node] = cur_node;
+			parents[next_node] = cur_node;
 			// cout << "next_node : " << next_node << "\n";
 			dfs(next_node, cur_node, node_value , depth);
 		}
@@ -122,7 +122,7 @@ int main()
 	// }
 	// cout << "\n";
 
-	preorder[1] = -1;
+	parents[1] = -1;
 	dfs(1,-1, node_value, count_route);
 
 	// for(int i = 0; i <= n; i++)
@@ -133,7 +133,7 @@ int main()
 
 	// for(int i = 0; i <= n; i++)
 	// {
-	// 	cout << "preoredr i: " << i << " : " <<preorder[i];
+	// 	cout << "preoredr i: " << i << " : " <<parents[i];
 	// 	cout << "\n";
 	// }
 }
