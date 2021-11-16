@@ -17,9 +17,11 @@ void back_dfs(int cur_node)
 	{
 		return;
 	}
-	cout << next_node << " ";
+
 	if(back_check[next_node] == 0)
 	{
+		cout << next_node << " ";
+		back_check[next_node] = 1;
 		back_dfs(next_node);
 	}
 
@@ -33,7 +35,8 @@ void dfs(int cur_node, int target_node)
 	{
 		cout << "dumped" << "\n";
 		cout << cur_node << " " ;
-		check[target_node] = 0;
+		// check[target_node] = 0;
+		check[n] = 0;
 		back_dfs(cur_node);
 	}
 	for(int i = 0; i < (int)adj_list[cur_node].size(); i++)
@@ -91,7 +94,7 @@ int main()
 	}
 
 	parents[n] = -1;
-	dfs(n , k);
+	dfs(n, k);
 	cout << "\n";
 
 	// for(int i = n; i <= k; i++)
