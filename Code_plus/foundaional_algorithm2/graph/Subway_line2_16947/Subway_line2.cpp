@@ -16,6 +16,8 @@ vector <int> adj_list[3001];
 int cycle_node_list[3001];
 int visit_dfs[3001];
 int visit_bfs[3001];
+int visit_path_bfs[3001];
+int dist[3001];
 int parants_vertex[3001];
 int flag_cycle;
 int vertex_num;
@@ -52,23 +54,58 @@ void find_circle(int cur_vertex)
 		}
 	}
 }
+void find_path_bfs(int start_v)
+{
+	memset(visit_path_bfs, 0, sizeof(visit_path_bfs));
+	queue <int> q;
+	visit_path_bfs[start_v] = 1;
+	q.push(start_v);
+	while(!q.empty())
+	{
+		// printf("front %d" , q.front());
+		int cur_v = q.front();
+		q.pop();
+		count++;
+		for(int i = 0; i < (int)adj_list[cur_v].size(); i++)
+		{
+			int next = adj_list[cur_v][i];
+			if(visit_path_bfs[next] == 0)
+			{
+				if(cycle_node_list[next] == 0) // 싸이클이 아닌걸 만나면.
+				{
+					dist[start_v] = count;
+					count = 0;
+				}
+				q.push(next);
+				visit_path_bfs[next] = 1;
+			}
+
+		}
+	}
+}
 
 void bfs(int start_v)
 {
 	queue <int> q;
-	visit_bfs[start_v] = count++;
+	visit_bfs[start_v] = 1;
 	q.push(start_v);
 	while(!q.empty())
 	{
 		int cur_v = q.front();
 		q.pop();
+
 		for(int i = 0; i < (int)adj_list[cur_v].size(); i++)
 		{
 			int next = adj_list[cur_v][i];
 			if(visit_bfs[next] == 0)
 			{
+				if(cycle_node_list[next] == 0)
+				{
+					find_path_bfs(next);
+					// printf("touch! cycle in {cur_v, next} : {%d, %d}\n", cur_v, next);
+				}
 				q.push(next);
-				visit_bfs[next] = count++;
+				visit_bfs[next] = 1;
 			}
 		}
 	}
@@ -86,18 +123,29 @@ int main()
 	}
 
 	find_circle(1);
-	for(int i = 1; i <= vertex_num; i++)
-	{
-		printf("%d",cycle_node_list[i]);
-	}
-	printf("\n");
-	for(int i = 1; i <= vertex_num; i++)
+	// for(int i = 0; i <= vertex_num; i++)
+	// {
+	// 	printf("%d ",cycle_node_list[i]);
+	// }
+	// // printf("\n");
+	// for(int i = 0; i <= vertex_num; i++)
+	// {
+	// 	printf("%d ", visit_bfs[i]);
+	// }
+	// printf("\n");
+	for(int i = 0; i <= vertex_num; i++)
 	{
 		if(visit_bfs[i] == 0)
 		{
 			bfs(i);
 		}
 	}
+	// printf("distance is :");
+	for(int i = 0; i <= vertex_num; i++)
+	{
+		printf("%d ", dist[i]);
+	}
+	printf("\n");
 
 
 }
