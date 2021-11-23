@@ -65,7 +65,6 @@ void find_path_bfs(int start_v)
 		// printf("front %d" , q.front());
 		int cur_v = q.front();
 		q.pop();
-		count++;
 		for(int i = 0; i < (int)adj_list[cur_v].size(); i++)
 		{
 			int next = adj_list[cur_v][i];
@@ -73,11 +72,20 @@ void find_path_bfs(int start_v)
 			{
 				if(cycle_node_list[next] == 0) // 싸이클이 아닌걸 만나면.
 				{
+					q.push(next);
+					printf("in if star_v ,cur, next , count : {%d, %d, %d, %d}\n", start_v, cur_v ,next ,count);
 					dist[start_v] = count;
-					count = 0;
+					visit_path_bfs[next] = 1;
 				}
-				q.push(next);
-				visit_path_bfs[next] = 1;
+				else // 싸이클인걸 만나면
+				{
+					dist[start_v] = count;
+					printf("in  else star_v ,next , count : {%d, %d, %d}\n", start_v, next ,count);
+					count = 0;
+					visit_path_bfs[next] = 1;
+				}
+				count++;
+
 			}
 
 		}
@@ -123,16 +131,16 @@ int main()
 	}
 
 	find_circle(1);
-	// for(int i = 0; i <= vertex_num; i++)
-	// {
-	// 	printf("%d ",cycle_node_list[i]);
-	// }
-	// // printf("\n");
+	for(int i = 0; i <= vertex_num; i++)
+	{
+		printf("%d ",cycle_node_list[i]);
+	}
+	// printf("\n");
 	// for(int i = 0; i <= vertex_num; i++)
 	// {
 	// 	printf("%d ", visit_bfs[i]);
 	// }
-	// printf("\n");
+	printf("\n");
 	for(int i = 0; i <= vertex_num; i++)
 	{
 		if(visit_bfs[i] == 0)
