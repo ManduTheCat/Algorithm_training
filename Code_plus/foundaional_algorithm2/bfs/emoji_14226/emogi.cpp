@@ -7,13 +7,13 @@ using namespace std;
 #define MAX 1000
 
 int n;
-int check_bfs[MAX + 1];
+int check_bfs[MAX + 1][MAX + 1];
 
-bool check_target(int src, int target)
+bool check_target(int src,int clip_bord, int target)
 {
 	if(src == target)
 	{
-		check_bfs[src] = 1;
+		check_bfs[src][clip_bord] = 1;
 		return true;
 	}
 	return false;
@@ -34,39 +34,39 @@ void bfs(int target_num)
 		{
 			int temp_clip_bord = emoge;
 			// cout <<"{emoge , clipbord, count} : "<< emoge<< " , " << clip_bord <<" , "<< count <<"\n";
-			if(check_target(emoge, target_num))
+			if(check_target(emoge,clip_bord, target_num))
 			{
 				cout << count << "\n";
 				break;
 			}
 
 			q.push({emoge, temp_clip_bord, count});
-			check_bfs[emoge] = 1;
+			check_bfs[emoge][temp_clip_bord] = 1;
 		}
-		if(emoge + clip_bord <= 1000 && clip_bord > 0) // 붙이기
+		if(emoge + clip_bord <= 1000 && clip_bord > 0 && check_bfs[clip_bord + emoge][clip_bord] != 1) // 붙이기
 		{
 			int temp_emoge = emoge + clip_bord;
 			// cout <<"{emoge , clipbord, count} : "<< emoge<< " , " << clip_bord <<" , "<< count <<"\n";
-			if(check_target(temp_emoge , target_num))
+			if(check_target(temp_emoge, clip_bord, target_num))
 			{
 				cout << count << "\n";
 				break;
 			}
 
-			check_bfs[temp_emoge] = 1;
+			check_bfs[temp_emoge][clip_bord] = 1;
 			q.push({temp_emoge, clip_bord, count});
 		}
-		if(emoge - 1 > 1) //자르기
+		if(emoge - 1 > 1 && check_bfs[emoge - 1][clip_bord] != 1) //자르기
 		{
 			emoge --;
 			// cout <<"{emoge , clipbord, count} : "<< emoge<< " , " << clip_bord <<" , "<< count <<"\n";
-			if(check_target(emoge, target_num))
+			if(check_target(emoge, clip_bord, target_num))
 			{
 				cout << count << "\n";
 				break;
 			}
 			q.push({emoge, clip_bord, count});
-			check_bfs[emoge] = 1;
+			check_bfs[emoge][clip_bord] = 1;
 		}
 	}
 }
