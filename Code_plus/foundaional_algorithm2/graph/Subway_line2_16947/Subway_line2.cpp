@@ -1,6 +1,7 @@
 #include <iostream>
 #include <vector>
 #include <string.h>
+#include <utility>
 #include <queue>
 
 using namespace std;
@@ -16,7 +17,6 @@ vector <int> adj_list[3001];
 int cycle_node_list[3001];
 int visit_dfs[3001];
 int visit_bfs[3001];
-int visit_path_bfs[3001];
 int dist[3001];
 int parants_vertex[3001];
 int flag_cycle;
@@ -54,66 +54,31 @@ void find_circle(int cur_vertex)
 		}
 	}
 }
-void find_path_bfs(int start_v)
+
+void bfs()
 {
-	memset(visit_path_bfs, 0, sizeof(visit_path_bfs));
-	queue <int> q;
-	visit_path_bfs[start_v] = 1;
-	q.push(start_v);
-	while(!q.empty())
+	queue <pair<int, int>> q;
+	for(int i = 0; i <=vertex_num; i++)
 	{
-		// printf("front %d" , q.front());
-		int cur_v = q.front();
-		q.pop();
-		for(int i = 0; i < (int)adj_list[cur_v].size(); i++)
+		if(cycle_node_list[i] == 1) // 사이클 이면 미리  q에 넣는다 거리 0채로 방문처리
 		{
-			int next = adj_list[cur_v][i];
-			if(visit_path_bfs[next] == 0)
-			{
-				if(cycle_node_list[next] == 0) // 싸이클이 아닌걸 만나면.
-				{
-					q.push(next);
-					printf("in if star_v ,cur, next , count : {%d, %d, %d, %d}\n", start_v, cur_v ,next ,count);
-					dist[start_v] = count;
-					visit_path_bfs[next] = 1;
-				}
-				else // 싸이클인걸 만나면
-				{
-					dist[start_v] = count;
-					printf("in  else star_v ,next , count : {%d, %d, %d}\n", start_v, next ,count);
-					count = 0;
-					visit_path_bfs[next] = 1;
-				}
-				count++;
-
-			}
-
+			visit_bfs[i] = 1;
+			q.push({i, 0});
 		}
 	}
-}
-
-void bfs(int start_v)
-{
-	queue <int> q;
-	visit_bfs[start_v] = 1;
-	q.push(start_v);
 	while(!q.empty())
 	{
-		int cur_v = q.front();
+		int cur = q.front().first;
+		int dis = q.front().second;
 		q.pop();
-
-		for(int i = 0; i < (int)adj_list[cur_v].size(); i++)
+		visit_bfs[cur]= 1;
+		for(int i = 0; i < (int)adj_list[cur].size(); i++)
 		{
-			int next = adj_list[cur_v][i];
-			if(visit_bfs[next] == 0)
+			int next = adj_list[cur][i];
+			if(visit_bfs[next] == 0) // 앞서 해놓은 사이클 노드 방문처리로 인해 사이클노드 걸러지면서 동시에 사이클 아닌 노드 방문가능.
 			{
-				if(cycle_node_list[next] == 0)
-				{
-					find_path_bfs(next);
-					// printf("touch! cycle in {cur_v, next} : {%d, %d}\n", cur_v, next);
-				}
-				q.push(next);
-				visit_bfs[next] = 1;
+				dist[next] = dis + 1;
+				q.push({next, dis + 1});
 			}
 		}
 	}
@@ -129,31 +94,11 @@ int main()
 		adj_list[from].push_back(to);
 		adj_list[to].push_back(from);
 	}
-
 	find_circle(1);
-	for(int i = 0; i <= vertex_num; i++)
-	{
-		printf("%d ",cycle_node_list[i]);
-	}
-	// printf("\n");
-	// for(int i = 0; i <= vertex_num; i++)
-	// {
-	// 	printf("%d ", visit_bfs[i]);
-	// }
-	printf("\n");
-	for(int i = 0; i <= vertex_num; i++)
-	{
-		if(visit_bfs[i] == 0)
-		{
-			bfs(i);
-		}
-	}
-	// printf("distance is :");
-	for(int i = 0; i <= vertex_num; i++)
+	bfs();
+	for(int i = 1; i <= vertex_num; i++)
 	{
 		printf("%d ", dist[i]);
 	}
 	printf("\n");
-
-
 }
