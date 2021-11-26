@@ -2,7 +2,7 @@ package main;
 
 import lang_study.static_test;
 
-public class hello_world {
+public class main {
     public static void main(String[]args){
 
         System.out.println("Hello_world");
