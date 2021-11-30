@@ -11,11 +11,11 @@ typedef struct _node{
 	int wide_dot;
 }node;
 
-node adj_list[10001];
-int input_times[10001];
-int depth_arr[10001];
-int r_wide_dot_arr[10001];
-int l_wide_dot_arr[10001];
+node adj_list[30001];
+int input_times[30001];
+int depth_arr[30001];
+int r_wide_dot_arr[30001];
+int l_wide_dot_arr[30001];
 int order;
 int node_input_times;
 
@@ -36,7 +36,6 @@ void inorder(int node)
 	adj_list[adj_list[node].right].depth = adj_list[node].depth + 1;
 	inorder(adj_list[node].right);
 }
-
 
 void find_max()
 {
