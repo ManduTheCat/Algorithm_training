@@ -85,7 +85,7 @@ int main()
 		if(r != -1)input_times[r]++;
 		if(l != -1)input_times[l]++;
 	}
-	for(int i = 1; i < node_input_times; i++) //루트를찾는 방법 한번만 등장하면 루트다
+	for(int i = 1; i <= node_input_times; i++) //루트를찾는 방법 한번만 등장하면 루트다
 	{
 		if(input_times[i] == 0)
 		{
