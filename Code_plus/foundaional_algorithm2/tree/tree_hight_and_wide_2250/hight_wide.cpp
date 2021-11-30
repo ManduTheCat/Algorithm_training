@@ -11,11 +11,12 @@ typedef struct _node{
 	int wide_dot;
 }node;
 
-vector <node> adj_list(10001);
+node adj_list[10001];
 int input_times[10001];
 int depth_arr[10001];
-int wide_dot_arr[1001];
-int wide_input_times;
+int r_wide_dot_arr[10001];
+int l_wide_dot_arr[10001];
+int order;
 int node_input_times;
 
 
@@ -29,8 +30,8 @@ void inorder(int node)
 	adj_list[adj_list[node].left].depth = adj_list[node].depth + 1;
 	inorder(adj_list[node].left);
 	// cout << node << ":";
-	wide_input_times++;
-	adj_list[node].wide_dot = wide_input_times;
+	order++;
+	adj_list[node].wide_dot = order;
 	// cout << adj_list[node].wide_dot << " ";
 	adj_list[adj_list[node].right].depth = adj_list[node].depth + 1;
 	inorder(adj_list[node].right);
@@ -39,37 +40,41 @@ void inorder(int node)
 
 void find_max()
 {
-	int max_res = 0;
-	int depth_res = 0;
-	for(int i = 0; i < node_input_times; i++)
-	{
-		depth_arr[i] = adj_list[i].depth;
-		wide_dot_arr[i] = adj_list[i].wide_dot;
-	}
+	int max_depth = 0;
+
 	for(int i = 1; i <= node_input_times; i++)
 	{
-		for(int j = i + 1; j <= node_input_times; j++)
+		int depth = adj_list[i].depth;
+		int order = adj_list[i].wide_dot;
+		if(l_wide_dot_arr[depth] == 0)
 		{
-			if(adj_list[i].depth == adj_list[j].depth)
-			{
-				// cout << adj_list[j].wide_dot<< " : " << adj_list[i].wide_dot << " ";
-				if(max_res < adj_list[j].wide_dot - adj_list[i].wide_dot)
-				{
-					max_res = max(adj_list[j].wide_dot - adj_list[i].wide_dot, max_res);
-					depth_res = adj_list[i].depth;
-				}
-				// cout << "\n";
+			l_wide_dot_arr[depth] = order;
+		}
+		else
+		{
+			l_wide_dot_arr[depth] = min(l_wide_dot_arr[depth], order);
+		}
+		r_wide_dot_arr[depth] = max(r_wide_dot_arr[depth], order);
+		max_depth = max(max_depth, depth);
+	}
 
-			}
+	int ans = 0;
+	int ans_lev = 0;
+	for(int i =1; i <=max_depth; i++)
+	{
+		if(ans < r_wide_dot_arr[i] - l_wide_dot_arr[i] + 1)
+		{
+			ans = r_wide_dot_arr[i] - l_wide_dot_arr[i] + 1;
+			ans_lev = i;
 		}
 	}
-	cout << depth_res+ 1<<" "<< max_res + 1 << "\n";
+	cout << ans_lev  << " "  << ans<< "\n";
 }
 
 int main()
 {
 
-	int root;
+	int root = 0;
 	cin >> node_input_times;
 
 	for(int i = 0; i < node_input_times; i++)
@@ -80,15 +85,15 @@ int main()
 		adj_list[root].right = r;
 		if(r != -1)input_times[r]++;
 		if(l != -1)input_times[l]++;
-		if(root != -1)input_times[root]++;
 	}
 	for(int i = 1; i < node_input_times; i++) //루트를찾는 방법 한번만 등장하면 루트다
 	{
-		if(input_times[i] == 1)
+		if(input_times[i] == 0)
 		{
 			root = i;
 		}
 	}
+	adj_list[root].depth = 1;
 	inorder(root); // root is not must 1!!!
 	find_max();
 }
