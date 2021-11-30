@@ -9,12 +9,11 @@ using namespace std;
 
 int n;
 int emoge = 1;
-int check_bfs[MAX * 2 + 1];
+// int check_bfs[MAX * 2 + 1];
 
 void bfs(int target_num)
 {
 	queue <tuple<int, int, int>> q;
-	check_bfs[emoge] = 1;
 	q.push({emoge, 0, 0});
 	while(!q.empty())
 	{
@@ -37,11 +36,9 @@ void bfs(int target_num)
 			if(emoge == target_num)
 			{
 				cout << "touch!! count = " << count << "\n";
-				check_bfs[target_num] = 1;
 				break;
 			}
 			q.push({emoge, clip_bord, count});
-			check_bfs[emoge] = 1;
 		}
 		if(emoge + clip_bord <= 1000 && clip_bord > 0) // 붙
 		{
@@ -51,13 +48,11 @@ void bfs(int target_num)
 			if(emoge == target_num)
 			{
 				cout << "touch!! count = " << count << "\n";
-				check_bfs[target_num] = 1;
 				break;
 			}
-			if(check_bfs[emoge] == 1)
-				continue;
+			// if(check_bfs[emoge] == 1)
+			// 	continue;
 			q.push({emoge, clip_bord, count});
-			check_bfs[emoge] = 1;
 		}
 		if(emoge - 1 > 1) //잘
 		{
@@ -67,14 +62,12 @@ void bfs(int target_num)
 			if(emoge == target_num)
 			{
 				cout << "touch!! count = " << count << "\n";
-				check_bfs[target_num] = 1;
 				break;
 			}
 
-			if(check_bfs[emoge] == 1)
-				continue;
+			// if(check_bfs[emoge] == 1)
+			// 	continue;
 			q.push({emoge, clip_bord, count});
-			check_bfs[emoge] = 1;
 		}
 
 	}
