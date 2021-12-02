@@ -12,8 +12,8 @@ priority_queue<pair<int, int>> pq; //비용, 위치
 
 int main(void){
     int n, k;
-    int here, h_time;
-    int there, t_time;
+    int cur_node, cur_cost;
+    int next_node, next_time;
 
     scanf("%d %d", &n, &k);
 
@@ -24,32 +24,33 @@ int main(void){
     cost[n] = 0;
 
     while(!pq.empty()){
-        h_time = -pq.top().first;
-        here = pq.top().second;
+        cur_cost = -pq.top().first;
+        cur_node = pq.top().second;
         pq.pop();
 
-        if(h_time > cost[here])
+        if(cost[cur_node] < cur_cost){
             continue;
+            }
         for(int i=0; i<3; i++){
             if( i== 2){
-                there = 2*here;
-                t_time = h_time;
+                next_node = 2*cur_node;
+                next_time = cur_cost;
             }
             else{
-                there = here+ X[i];
-                t_time = h_time+1;
+                next_node = cur_node+ X[i];
+                next_time = cur_cost+1;
             }
-            if(there < 0 || there > 100000)
+            if(next_node < 0 || next_node > 100000)
                 continue;
 
-            if(cost[there] == -1){
-                cost[there] = t_time;
-                pq.push(make_pair(-t_time, there));
+            if(cost[next_node] == -1 || cost[next_node] > next_time){
+                cost[next_node] = next_time;
+                pq.push(make_pair(-next_time, next_node));
             }
-            else if(cost[there] > t_time){
-                cost[there] = t_time;
-                pq.push(make_pair(-t_time, there));
-            }
+            // else if(cost[next_node] > next_time){
+            //     cost[next_node] = next_time;
+            //     pq.push(make_pair(-next_time, next_node));
+            // }
         }
     }
     printf("%d\n", cost[k]);
