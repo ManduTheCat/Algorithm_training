@@ -1,7 +1,7 @@
 ## 프로그래머스 땅따먹기
 ### 문제 링크
 * [땅따먹기](https://programmers.co.kr/learn/courses/30/lessons/12913).
-### 첫풀기
+### 첫풀이
 ```cpp
 #include <iostream>
 #include <vector>
@@ -60,6 +60,7 @@ int solution(vector<vector<int> > land)
 * 바로 이전의 인덱스를 기억하지 않고 첫버째 인덱스를 기억한다.
 * [[4, 3, 2, 1], [2, 2, 2, 1], [6, 6, 6, 4], [8, 7, 6, 5]] 일때 첫번째 colum 1 일때 4 2 6 8 이 아니라 4 2 6 7 을 찾는다 </br>
 4 2 6 '8' 을 선택해야 하지만  계속해서 첫번째 인덱스를 기억하여 8에 해당되는 3 번 인덱스를 필터링한다.
+### 개선된 풀이
 ```cpp
 #include <iostream>
 #include <vector>
