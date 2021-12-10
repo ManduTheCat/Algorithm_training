@@ -83,6 +83,7 @@ int solution(vector<vector<int> > land)
 
 ```
 #### 해결 점
+* dp 를 활용 하여 바로 이전 것 을 처리 하게 하였다
 * col 이 4개인 점을 활용하여 찾아야 하는 colum 을 하드 코딩 하였다.
 
 #### 보충 할점
