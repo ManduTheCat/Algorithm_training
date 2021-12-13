@@ -7,13 +7,28 @@ int n;
 vector <int> res;
 vector <int> adj_list[16];
 vector <pair<int, int>> schedule[16];
+bool check[16];
+
+void bfs(int start_node){
+	queue <int> q;
+	// int p = schedule[start_node][0].second;
+	q.push(start_node);
+	check[start_node] = true;
+	while(!q.empty()){
+		int cur_node =	q.front(); //1
+		q.pop();
+		for(int i = 0; i < (int)adj_list[cur_node].size(); i++){
+			int next_node = adj_list[cur_node][i];
+			if(check[next_node] == false){
+				q.push(next_node);
+			}
+
+		}
+
+	}
 
 
-// void bfs(int start_node){
-// 	queue <int> q;
-// 	int p = schedule[start_node][0].second;
-
-// }
+}
 
 int main(){
 	scanf("%d", &n);
@@ -43,5 +58,6 @@ int main(){
 			printf("%d ", adj_list[i][j]);
 		}
 		printf("\n");
+		bfs(1);
 	}
 }
