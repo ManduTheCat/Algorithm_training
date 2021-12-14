@@ -1,29 +1,30 @@
 #include <iostream>
-#include <algorithm>
 #include <vector>
-
+#include <algorithm>
 using namespace std;
 
-int N;
-int T[15] = {0};
-int P[15] = {0};
+int p [15];
+int t [15];
 int ans;
+int n;
 
-void dfs(int start, int sum){
-	if(start > N){
+void bfs(int start, int sum){
+	if(start > n){
 		return;
 	}
 	ans = max(ans, sum);
-	for(int i = start; i < N; i++){
-		dfs(i + T[i] ,sum +P[i]);
+	for(int i = start; i < n ; i++){
+		bfs(i + t[i], sum + p[i]);
 	}
+
 }
 
 int main(){
-	cin >> N;
-	for(int i = 0; i <N; i++){
-		cin >> T[i] >> P[i];
+
+	cin >> n;
+	for(int i = 0; i < n; i++){
+		cin >> t[i] >> p[i];
 	}
-	dfs(0,0);
-	cout << ans;
+	bfs(0,0);
+	cout <<  ans << "\n";
 }
