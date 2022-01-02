@@ -2,17 +2,25 @@ package programers.FirstWeek.HashadNumber;
 import java.util.ArrayList;
 class Solution {
     public static boolean solution(int x) {
-        int num = x;
-        ArrayList<Integer> arrNum = new ArrayList<>();
-        while(num > 0) {
-            arrNum.add(num %10);
-            num /= 10;
+
+        boolean answer = false;
+        Integer num = x;
+        ArrayList <Integer> SplitNums = new ArrayList<Integer>();
+        while(num > 0){
+            SplitNums.add(num % 10);
+            num /=10;
         }
-        System.out.println(arrNum);
-        boolean answer = true;
+        Integer sum = 0;
+        for(int i = 0; i < SplitNums.size(); i++){
+            sum += SplitNums.get(i);
+        }
+        if(x % sum == 0){
+            answer = true;
+        }
         return answer;
     }
     public static void main(String[] args) {
-        solution(121);
+
+       System.out.println( solution(19));
     }
 }
