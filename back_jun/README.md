@@ -14,4 +14,4 @@
 
 * [오르막수 11057](https://www.acmicpc.net/problem/11057) : [DP 풀이](https://github.com/ManduTheCat/Algorithm_training/blob/master/back_jun/upper_number_11057/upper_number.cpp)
 
-* [와인 마시기 2157](https://www.acmicpc.net/problem/2156) : [DP 풀이](https://github.com/ManduTheCat/Algorithm_training/blob/master/back_jun/wine/wine.cpp)
+* [와인 마시기 2157](https://www.acmicpc.net/problem/2156) : [DP 풀이](https://github.com/ManduTheCat/Algorithm_training/blob/master/back_jun/wine2157/wine.cpp)
