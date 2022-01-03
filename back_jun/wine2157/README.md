@@ -22,17 +22,22 @@ int main(){
 	int n;
 	// 입력횟수 할당
 	cin >> n;
+
 	// 와인량 배열 선언
 	int *wine = new int [n + 1];
+
 	// dp 배열 선언
 	int *dp = new int[n + 1];
+
 	// 각 배열 초기화
 	memset(wine, 0 , sizeof(int) * n + 1);
 	memset(dp, 0 , sizeof(int) * n + 1);
+
 	// 와인양 배열 입력  반복문
 	for(int i = 1; i <= n; i++){
 		cin >> wine[i];
 	}
+
 	// 1 번째 2번째 dp에서는 모두다 마시는게 최대량이라 각 요소의 합으로 초기화 한다
 	dp[1] = wine[1];
 	dp[2] = wine[2] + dp[1];
@@ -43,6 +48,7 @@ int main(){
 		dp[i] = max(dp[i], dp[i - 2] + wine[i]);
 		dp[i] = max(dp[i], dp[i - 1]);
 	}
+
 	// 출력
 	cout << dp[n];
 }
