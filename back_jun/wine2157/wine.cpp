@@ -11,7 +11,6 @@ int main(){
 	memset(wine, 0 , sizeof(int) * n + 1);
 	memset(dp, 0 , sizeof(int) * n + 1);
 
-
 	for(int i = 1; i <= n; i++){
 		cin >> wine[i];
 	}
@@ -24,8 +23,5 @@ int main(){
 		dp[i] = max(dp[i], dp[i - 2] + wine[i]);
 		dp[i] = max(dp[i], dp[i - 1]);
 	}
-	// for(int i = 1; i <= n;  i++){
-	// 	cout << dp[i] << "\n";
-	// }
 	cout << dp[n];
 }
