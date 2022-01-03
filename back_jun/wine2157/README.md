@@ -20,6 +20,7 @@ using namespace std;
 
 int main(){
 	int n;
+
 	// 입력횟수 할당
 	cin >> n;
 
@@ -53,3 +54,5 @@ int main(){
 	cout << dp[n];
 }
 ```
+## 어려웠던점
+* 이전에 풀었던 rgb 거리와 문제가 비슷할줄 알았는데 연속으로 2개만 마시는 조건이 생각보다 어려웠다.
