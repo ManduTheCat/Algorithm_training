@@ -9,32 +9,17 @@ def is_prime(n):
 	return True
 
 def solution(nums):
-	path_check = [False] * 3000
 	# print(path_check)
-	sum = []
-	dfs(nums, 3, sum)
+	dfs(nums, 0 , 0, 0)
 	return 0
 
-def dfs(nums, lv, sum_list):
-	# print(sum_list)
-	if len(sum_list) == 3:
-		# print(sum_list)
-		return 0
-	lv -=1
-	cur_node = nums[0]
-	sum_list.append(cur_node)
-	nums.remove(cur_node)
-	print(nums)
-
-	for n in nums:
-
-		appended_sum_list = copy.deepcopy(sum_list)
-		appended_sum_list.append(n)
-		# print(appended_sum_list)
-		dfs(nums, lv, appended_sum_list)
-
-
-
-
+def dfs(nums, idx, lv_count, sum):
+	if lv_count == 3:
+		print("sum : ", sum , " lv : ", lv_count)
+		print(is_prime(sum))
+	
+	for i in range(idx, len(nums)):
+		dfs(nums, i + 1, lv_count + 1, sum + nums[i])
+		# 3번째 숫자일떼 idx 0 은 아에 취급하지 않음? 이미했던숫자라 의미가 
 
 
