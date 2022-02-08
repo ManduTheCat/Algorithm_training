@@ -1,8 +1,8 @@
 from collections import deque
 
-def solution(computers):
+def solution(n, computers):
 	ans = 0
-	check = [False for i in range(1, 201)]
+	check = [False for i in range(1, n + 1)]
 	for i in range(len(computers)):
 		if check[i] == False:
 			dfs(i, computers, check)
