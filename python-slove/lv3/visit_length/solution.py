@@ -44,17 +44,18 @@ def solution(dirs):
 	dr = [-1, 1, 0, 0]
 	map[5][5] = 1
 	cur_point = [5, 5]
+	route = set()
 
 	for command in dirs:
+		befoe_point = list(cur_point)
 		cur_point = move(map, cur_point, command)
 		if is_out(cur_point):
 			back_move(map, cur_point, command)
 		map[cur_point[0]][cur_point[1]] = 1
+		route.add((befoe_point[0], befoe_point[1], cur_point[0], cur_point[1]))
+		route.add((cur_point[0], cur_point[1], befoe_point[0], befoe_point[1]))
 
-
-
-
-	for row in map:
-		print(row)
-
-	return 0
+	# for row in map:
+		# print(row)
+	# print(route)
+	return (len(route)//2)
