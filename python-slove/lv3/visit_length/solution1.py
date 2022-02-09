@@ -7,6 +7,7 @@ def solution(dirs):
 	route = set()
 	cur_row, cur_column = (0, 0)
 	for dir_command in dirs:
+		## command['U'][0] 이되는 파이썬은 신이고 무적이다ㅉ
 		next_row = cur_row + command[dir_command][0]
 		next_column = cur_column + command[dir_command][1]
 		if -5 <= next_column <= 5 and -5 <= next_row <= 5:
