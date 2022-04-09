@@ -3,10 +3,12 @@
 ## greedy
 * [부분합 1806](https://www.acmicpc.net/problem/1806) : [풀이](https://github.com/ManduTheCat/Algorithm_training/blob/master/back_jun/parial_sum_1806/partial.cpp)
 
-## Bfs
+## 완전탐색
 * [퇴사 14501](https://www.acmicpc.net/problem/14501) : [bfs풀이](https://github.com/ManduTheCat/Algorithm_training/blob/master/back_jun/quit_job_14501/quit_jop.cpp)
 
 * [욕심쟁이 판다](https://www.acmicpc.net/problem/1937)
+
+* [바이러스](https://www.acmicpc.net/problem/2606) : [bfs풀이](https://github.com/ManduTheCat/Algorithm_training/blob/master/back_jun/virus_2606/solution.py)
 
 ## DP
 * [RGB 거리 1149](https://www.acmicpc.net/problem/1149) : [DP 풀이](https://github.com/ManduTheCat/Algorithm_training/blob/master/back_jun/RGB_distance_1149/RGB.cpp)
