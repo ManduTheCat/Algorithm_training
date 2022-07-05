@@ -1,4 +1,3 @@
-import sys
 
 def find_max(res):
   # N M 같을때 처리
@@ -40,9 +39,9 @@ def select_Base_list(N, M, A_list, B_list):
 def main():
   input_count = int(input())
   for i  in range(input_count):
-    N, M  = map(int, sys.stdin.readline().split(" "))
-    A_list = list(map(int, sys.stdin.readline().strip().split(" ")))
-    B_list = list(map(int, sys.stdin.readline().strip().split(" ")))
+    N, M  = map(int, input().split(" "))
+    A_list = list(map(int, input().split(" ")))
+    B_list = list(map(int,input().split(" ")))
     print("#"+str(i+1),find_max(select_Base_list(N, M, A_list, B_list)))
 
 if __name__ == "__main__":
