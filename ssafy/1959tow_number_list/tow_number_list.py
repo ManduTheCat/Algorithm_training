@@ -1,4 +1,3 @@
-
 def find_max(res):
   # N M 같을때 처리
   if res["is_same"]:
@@ -22,8 +21,6 @@ def find_max(res):
       mul_res.append(base_list[idx] *val )
     sum_list.append(sum(mul_res))
   return max(sum_list)
-
-
 
 # 단, 더 긴 쪽의 양끝을 벗어나서는 안 된다. 조건 에 따라
 # 비교할때이 동할 리스트와 고정된 리스트를 고른다
